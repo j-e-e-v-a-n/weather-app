@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app">
+    <div class="weather-background"></div>
+    
+    <div class="container">
+      <div class="search-container">
+        <form id="searchForm" class="search-form">
+          <div class="search-input-container">
+            <input 
+              type="text" 
+              id="cityInput" 
+              placeholder="Enter city name..."
+              class="search-input"
+              autocomplete="off"
+            >
+            <i data-lucide="search" class="search-icon"></i>
+            <div id="suggestions" class="suggestions-container"></div>
+            <button type="submit" class="search-button">Search</button>
+            <button 
+              type="button" 
+              id="locationButton" 
+              class="location-button" 
+              title="Use current location"
+            >
+              <i data-lucide="map-pin"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="loader" class="loader hidden">
+        <i data-lucide="loader-2"></i>
+      </div>
+
+      <div id="error" class="error hidden"></div>
+
+      <div id="weatherCard" class="weather-card hidden">
+        <div class="weather-header">
+          <div>
+            <h2 id="cityName" class="city-name"></h2>
+            <p id="weatherDescription" class="weather-description"></p>
+          </div>
+          <button id="unitToggle" class="unit-toggle">°C</button>
+        </div>
+
+        <div class="temperature-container">
+          <div class="temperature-display">
+            <img id="weatherIcon" src="" alt="" class="weather-icon">
+            <span id="temperature" class="temperature"></span>
+          </div>
+          <p id="feelsLike" class="feels-like"></p>
+        </div>
+
+        <div class="weather-details">
+          <div class="detail-item">
+            <i data-lucide="droplets" class="detail-icon"></i>
+            <span class="detail-label">Humidity</span>
+            <span id="humidity" class="detail-value"></span>
+          </div>
+          <div class="detail-item">
+            <i data-lucide="wind" class="detail-icon"></i>
+            <span class="detail-label">Wind</span>
+            <span id="windSpeed" class="detail-value"></span>
+          </div>
+          <div class="detail-item">
+            <i data-lucide="cloud" id="conditionIcon" class="detail-icon"></i>
+            <span class="detail-label">Condition</span>
+            <span id="condition" class="detail-value"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
