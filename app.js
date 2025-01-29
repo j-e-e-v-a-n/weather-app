@@ -113,7 +113,32 @@ const fetchCitySuggestions = async (searchText) => {
     }
   };
   
-  
+  // Event listener for the location button to get the user's live location
+document.getElementById('locationButton').addEventListener('click', () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+      console.log('Latitude:', latitude, 'Longitude:', longitude);  // For debugging
+
+      // Fetch weather data for the current location
+      try {
+        const weatherResponse = await fetch(
+          `${WEATHER_BASE_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=metric`
+        );
+        currentWeatherData = await weatherResponse.json();
+        updateWeatherUI();
+      } catch (err) {
+        showError('Failed to fetch weather data for your location');
+        console.error(err);
+      }
+    }, () => {
+      showError('Unable to retrieve your location. Please enable location services.');
+    });
+  } else {
+    showError('Geolocation is not supported by this browser.');
+  }
+});
+
   
   // Update the UI to handle population properly
   const showSuggestions = (suggestions) => {
@@ -122,6 +147,7 @@ const fetchCitySuggestions = async (searchText) => {
       suggestionsContainer.style.display = 'none';
       return;
     }
+
   
     suggestions.forEach((city, index) => {
       const div = document.createElement('div');
